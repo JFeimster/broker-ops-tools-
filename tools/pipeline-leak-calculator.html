@@ -1,0 +1,255 @@
+<!-- PIPELINE LEAK CALCULATOR EMBED -->
+<style>
+    /* Calculator Specific Variables */
+    :root {
+        --calc-bg: #111111;
+        --calc-border: #333333;
+        --calc-accent: #00f3ff;
+        --calc-alert: #ff3333;
+        --calc-text: #ffffff;
+        --calc-muted: #888888;
+        --font-calc-head: 'Space Grotesk', sans-serif;
+        --font-calc-body: 'Inter', sans-serif;
+    }
+
+    .brutal-calculator {
+        background: var(--calc-bg);
+        border: 2px solid var(--calc-border);
+        border-radius: 8px;
+        padding: 3rem;
+        font-family: var(--font-calc-body);
+        color: var(--calc-text);
+        max-width: 800px;
+        margin: 0 auto;
+        box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.5);
+        transition: border-color 0.3s ease;
+    }
+
+    .brutal-calculator:hover {
+        border-color: var(--calc-accent);
+    }
+
+    .calc-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .calc-header h3 {
+        font-family: var(--font-calc-head);
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        line-height: 1.1;
+    }
+
+    .calc-header p {
+        color: var(--calc-muted);
+        font-size: 1.1rem;
+    }
+
+    .calc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .calc-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .input-group label {
+        font-family: var(--font-calc-head);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .slider-val {
+        color: var(--calc-accent);
+        font-family: monospace;
+        font-size: 1.1rem;
+    }
+
+    /* Brutalist Range Slider */
+    input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 24px;
+        width: 24px;
+        border-radius: 0;
+        background: var(--calc-accent);
+        cursor: pointer;
+        margin-top: -10px;
+        box-shadow: 2px 2px 0px var(--calc-text);
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: var(--calc-border);
+    }
+
+    .calc-output {
+        background: #0a0a0a;
+        border: 1px dashed var(--calc-alert);
+        padding: 2.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+
+    .output-label {
+        color: var(--calc-alert);
+        font-family: var(--font-calc-head);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+    }
+
+    .output-value {
+        font-size: 4rem;
+        font-family: var(--font-calc-head);
+        color: var(--calc-text);
+        text-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+        line-height: 1;
+        margin-bottom: 2rem;
+    }
+
+    .calc-btn {
+        background: var(--calc-alert);
+        color: #fff;
+        border: none;
+        padding: 1rem 2rem;
+        font-family: var(--font-calc-head);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 4px 4px 0px var(--calc-text);
+        transition: transform 0.1s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .calc-btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0px var(--calc-text), 0 0 15px rgba(255, 51, 51, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .calc-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .brutal-calculator {
+            padding: 1.5rem;
+        }
+        .output-value {
+            font-size: 3rem;
+        }
+    }
+</style>
+
+<div class="brutal-calculator">
+    <div class="calc-header">
+        <h3>The Pipeline Leak Calculator</h3>
+        <p>Quantify the exact cost of your "2 AM Pipeline Panic."</p>
+    </div>
+    
+    <div class="calc-grid">
+        <div class="calc-inputs">
+            <!-- Input 1 -->
+            <div class="input-group">
+                <label>Monthly Lead Volume <span class="slider-val" id="val-leads">150</span></label>
+                <input type="range" id="input-leads" min="10" max="1000" step="10" value="150">
+            </div>
+            
+            <!-- Input 2 -->
+            <div class="input-group">
+                <label>Avg. Commission Per Deal <span class="slider-val" id="val-comm">$4,500</span></label>
+                <input type="range" id="input-comm" min="500" max="25000" step="500" value="4500">
+            </div>
+            
+            <!-- Input 3 -->
+            <div class="input-group">
+                <label>Est. Pipeline Drop-off Rate <span class="slider-val" id="val-drop">25%</span></label>
+                <input type="range" id="input-drop" min="5" max="80" step="1" value="25">
+                <p style="font-size: 0.75rem; color: var(--calc-muted); margin-top: 0.25rem;">(% of leads lost to missing docs, slow SLA, or forgotten follow-up)</p>
+            </div>
+        </div>
+        
+        <div class="calc-output">
+            <div class="output-label">Gross Monthly Revenue Leaking</div>
+            <div class="output-value" id="total-leak">$168,750</div>
+            <a href="#audit" class="calc-btn">Stop The Bleeding</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputLeads = document.getElementById('input-leads');
+        const inputComm = document.getElementById('input-comm');
+        const inputDrop = document.getElementById('input-drop');
+        
+        const valLeads = document.getElementById('val-leads');
+        const valComm = document.getElementById('val-comm');
+        const valDrop = document.getElementById('val-drop');
+        const totalLeak = document.getElementById('total-leak');
+
+        // Currency Formatter
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0
+        });
+
+        function calculateLeak() {
+            const leads = parseFloat(inputLeads.value);
+            const comm = parseFloat(inputComm.value);
+            const dropRate = parseFloat(inputDrop.value) / 100;
+
+            // Update Labels
+            valLeads.textContent = leads;
+            valComm.textContent = formatter.format(comm);
+            valDrop.textContent = inputDrop.value + '%';
+
+            // Math: (Leads * Drop Rate) * Commission
+            const lostDeals = leads * dropRate;
+            const revenueLost = lostDeals * comm;
+
+            // Update DOM
+            totalLeak.textContent = formatter.format(revenueLost);
+        }
+
+        // Event Listeners
+        inputLeads.addEventListener('input', calculateLeak);
+        inputComm.addEventListener('input', calculateLeak);
+        inputDrop.addEventListener('input', calculateLeak);
+
+        // Initial Calc
+        calculateLeak();
+    });
+</script>
+<!-- END PIPELINE LEAK CALCULATOR EMBED -->
