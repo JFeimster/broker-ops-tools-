@@ -1,0 +1,32 @@
+<div class="brutal-widget" id="tool-stuck">
+    <div class="widget-title">Hidden ROI Sandbox</div>
+    <div class="widget-hook">You don't need to buy more ads. You need to unlock the vault sitting in your 'Docs Requested' folder.</div>
+    
+    <div class="input-group">
+        <label>Deals stuck in "Awaiting Docs"</label>
+        <input type="number" id="stuck-deals" value="45" min="1">
+    </div>
+    <div class="input-group">
+        <label>Avg Commission per Deal ($)</label>
+        <input type="number" id="stuck-comm" value="3500" min="100">
+    </div>
+
+    <div class="widget-output">
+        <div class="output-label">Hidden Cash (Assuming 18% Automated Revival)</div>
+        <div class="output-val success" id="stuck-roi">$28,350</div>
+    </div>
+</div>
+
+<script>
+    function calcStuckROI() {
+        const deals = parseFloat(document.getElementById('stuck-deals').value) || 0;
+        const comm = parseFloat(document.getElementById('stuck-comm').value) || 0;
+        // 18% standard revival rate with automated polite persistence
+        const roi = deals * comm * 0.18; 
+        
+        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+        document.getElementById('stuck-roi').textContent = formatter.format(roi);
+    }
+    document.getElementById('stuck-deals').addEventListener('input', calcStuckROI);
+    document.getElementById('stuck-comm').addEventListener('input', calcStuckROI);
+</script>
