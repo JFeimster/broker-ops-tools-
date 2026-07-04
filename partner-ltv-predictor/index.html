@@ -1,0 +1,36 @@
+<div class="brutal-widget" id="tool-ltv">
+    <div class="widget-title">Partner LTV Predictor</div>
+    <div class="widget-hook">Stop begging for referrals. See the compounding revenue loss of ignoring the partners you already have.</div>
+    
+    <div class="input-group">
+        <label>Number of Referral Partners <span class="val-display" id="ltv-partners-val">20</span></label>
+        <input type="range" id="ltv-partners" min="5" max="200" step="5" value="20">
+    </div>
+    <div class="input-group">
+        <label>Avg Deal Commission <span class="val-display" id="ltv-comm-val">$5,000</span></label>
+        <input type="range" id="ltv-comm" min="1000" max="20000" step="500" value="5000">
+    </div>
+
+    <div class="widget-output" style="border-color: var(--tool-cyan);">
+        <div class="output-label">Annual Revenue Gap (Forgotten vs Nurtured)</div>
+        <div class="output-val" id="ltv-gap" style="color: var(--tool-cyan);">$1,100,000</div>
+        <div style="color: var(--tool-muted); font-size: 0.85rem; margin-top: 1rem;">Nurtured = 1 deal/mo. Forgotten = 1 deal/yr.</div>
+    </div>
+</div>
+
+<script>
+    function calcLTV() {
+        const partners = parseInt(document.getElementById('ltv-partners').value);
+        const comm = parseInt(document.getElementById('ltv-comm').value);
+        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+        
+        document.getElementById('ltv-partners-val').textContent = partners;
+        document.getElementById('ltv-comm-val').textContent = formatter.format(comm);
+
+        // Nurtured: 12 deals a year. Forgotten: 1 deal a year. Gap: 11 deals/yr per partner.
+        const gap = partners * comm * 11; 
+        document.getElementById('ltv-gap').textContent = formatter.format(gap);
+    }
+    document.getElementById('ltv-partners').addEventListener('input', calcLTV);
+    document.getElementById('ltv-comm').addEventListener('input', calcLTV);
+</script>
