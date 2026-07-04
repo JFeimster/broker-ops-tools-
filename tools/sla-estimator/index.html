@@ -1,0 +1,45 @@
+<div class="brutal-widget" id="tool-sla">
+    <div class="widget-title">Speed-to-Lead Grader</div>
+    <div class="widget-hook">Every hour you wait, your lead's value drops. See exactly how much your slow processors are costing you.</div>
+    
+    <div class="input-group">
+        <label>Avg Time to First Contact <span class="val-display" id="sla-val">2 Hours</span></label>
+        <input type="range" id="sla-time" min="0" max="48" step="1" value="2">
+        <small style="color: var(--tool-muted); font-size: 0.75rem;">0 = Under 5 minutes</small>
+    </div>
+
+    <div class="widget-output">
+        <div class="output-label">Conversion Probability Drop</div>
+        <div class="output-val danger" id="sla-drop">-80%</div>
+        <div style="color: var(--tool-muted); font-size: 0.85rem; margin-top: 1rem;" id="sla-message">Your leads are dying in the queue.</div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('sla-time').addEventListener('input', function() {
+        const hours = parseInt(this.value);
+        const valDisplay = document.getElementById('sla-val');
+        const dropDisplay = document.getElementById('sla-drop');
+        const messageDisplay = document.getElementById('sla-message');
+        
+        if (hours === 0) valDisplay.textContent = "< 5 Mins";
+        else if (hours === 1) valDisplay.textContent = "1 Hour";
+        else valDisplay.textContent = hours + " Hours";
+
+        // Exponential decay simulation (Odds drop 80% in first hour, then compound)
+        let drop = 0;
+        if (hours === 0) drop = 0;
+        else if (hours === 1) drop = 80;
+        else drop = Math.min(99, 80 + (hours * 0.5));
+
+        dropDisplay.textContent = `-${Math.round(drop)}%`;
+        
+        if (hours === 0) {
+            dropDisplay.className = "output-val success";
+            messageDisplay.textContent = "Elite SLA. You are beating 95% of brokers.";
+        } else {
+            dropDisplay.className = "output-val danger";
+            messageDisplay.textContent = hours > 24 ? "You are basically buying leads for your competitors." : "Your pipeline is leaking heavily.";
+        }
+    });
+</script>
