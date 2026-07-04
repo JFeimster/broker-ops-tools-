@@ -1,0 +1,48 @@
+<style>
+    /* Shared Neo-Brutalist Tool Variables */
+    :root {
+        --tool-bg: #0a0a0a;
+        --tool-surface: #141414;
+        --tool-border: #333333;
+        --tool-cyan: #00f3ff;
+        --tool-lime: #39ff14;
+        --tool-orange: #ff5722;
+        --tool-red: #ff3333;
+        --tool-text: #ffffff;
+        --tool-muted: #888888;
+        --font-head: 'Space Grotesk', sans-serif;
+        --font-body: 'Inter', sans-serif;
+    }
+
+    .brutal-widget {
+        background: var(--tool-bg); border: 2px solid var(--tool-border);
+        border-radius: 8px; padding: 2rem; font-family: var(--font-body);
+        color: var(--tool-text); max-width: 600px; margin: 2rem auto;
+        box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); transition: border-color 0.3s;
+    }
+    .brutal-widget:hover { border-color: var(--tool-cyan); }
+    .widget-title { font-family: var(--font-head); font-size: 1.8rem; text-transform: uppercase; margin-bottom: 0.5rem; line-height: 1.1; }
+    .widget-hook { color: var(--tool-muted); font-size: 0.95rem; margin-bottom: 2rem; border-left: 2px solid var(--tool-cyan); padding-left: 10px; }
+    
+    .input-group { margin-bottom: 1.5rem; }
+    .input-group label { display: flex; justify-content: space-between; font-family: var(--font-head); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .val-display { color: var(--tool-cyan); font-family: monospace; font-size: 1rem; }
+    
+    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; background: var(--tool-cyan); cursor: pointer; margin-top: -8px; box-shadow: 2px 2px 0px var(--tool-text); }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: var(--tool-border); }
+    
+    input[type=number], select { width: 100%; background: var(--tool-surface); border: 1px solid var(--tool-border); color: var(--tool-text); padding: 0.75rem; font-family: var(--font-body); outline: none; }
+    input[type=number]:focus, select:focus { border-color: var(--tool-cyan); }
+
+    .widget-output { background: #000; border: 1px dashed var(--tool-border); padding: 1.5rem; text-align: center; margin-top: 1.5rem; }
+    .output-label { font-family: var(--font-head); text-transform: uppercase; font-size: 0.8rem; color: var(--tool-muted); margin-bottom: 0.5rem; }
+    .output-val { font-family: var(--font-head); font-size: 3rem; line-height: 1; text-shadow: 0 0 15px rgba(0, 243, 255, 0.3); }
+    .output-val.danger { color: var(--tool-red); text-shadow: 0 0 15px rgba(255, 51, 51, 0.3); }
+    .output-val.success { color: var(--tool-lime); text-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+
+    .radio-group { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+    .radio-label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; }
+    .btn-action { display: block; width: 100%; background: var(--tool-text); color: var(--tool-bg); text-align: center; padding: 1rem; font-family: var(--font-head); font-weight: 700; text-transform: uppercase; border: none; cursor: pointer; margin-top: 1.5rem; box-shadow: 4px 4px 0px var(--tool-cyan); transition: transform 0.1s; }
+    .btn-action:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--tool-cyan); }
+</style>
