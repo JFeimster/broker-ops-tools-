@@ -1,0 +1,48 @@
+<div class="brutal-widget" id="tool-stress">
+    <div class="widget-title">Compliance Stress Test</div>
+    <div class="widget-hook">Is your current CRM automation illegally promising funding? Take the 60-second test.</div>
+    
+    <div class="radio-group" id="quiz-container">
+        <label class="radio-label"><input type="checkbox" class="stress-q"> Does your sequence pause automatically if a client replies?</label>
+        <label class="radio-label"><input type="checkbox" class="stress-q"> Is human review forced before terms are sent out?</label>
+        <label class="radio-label"><input type="checkbox" class="stress-q"> Are your texts strictly clear of words like "approved" or "guaranteed"?</label>
+        <label class="radio-label"><input type="checkbox" class="stress-q"> Do you have a specific tag/status for "Declined, Re-nurture in 90 days"?</label>
+        <label class="radio-label"><input type="checkbox" class="stress-q"> Are your processors notified when a funded client hits month 6?</label>
+    </div>
+
+    <button class="btn-action" onclick="runStressTest()">Calculate Fragility Score</button>
+
+    <div class="widget-output" id="stress-result" style="display: none;">
+        <div class="output-label">System Fragility Score</div>
+        <div class="output-val" id="stress-score"></div>
+        <div style="font-size: 0.9rem; margin-top: 1rem; font-weight: bold;" id="stress-advice"></div>
+    </div>
+</div>
+
+<script>
+    function runStressTest() {
+        const checkboxes = document.querySelectorAll('.stress-q');
+        let score = 0;
+        checkboxes.forEach(cb => { if(cb.checked) score++; });
+        
+        const resultBox = document.getElementById('stress-result');
+        const scoreVal = document.getElementById('stress-score');
+        const advice = document.getElementById('stress-advice');
+        
+        resultBox.style.display = 'block';
+        
+        if (score === 5) {
+            scoreVal.textContent = "SECURE";
+            scoreVal.className = "output-val success";
+            advice.textContent = "Your infrastructure is solid. Now scale the volume.";
+        } else if (score >= 3) {
+            scoreVal.textContent = "VULNERABLE";
+            scoreVal.style.color = "var(--tool-orange)";
+            advice.textContent = "You have massive operational leaks. One wrong text could cost you a lender relationship.";
+        } else {
+            scoreVal.textContent = "DANGER";
+            scoreVal.className = "output-val danger";
+            advice.textContent = "High Compliance Risk & Heavy Pipeline Bleeding. You need an overhaul immediately.";
+        }
+    }
+</script>
